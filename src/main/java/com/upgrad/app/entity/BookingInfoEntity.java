@@ -6,14 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Data
 @Table(name = "booking")
 public class BookingInfoEntity {
 
-    @Id
     @Column(name = "bookingId")
     private Integer id;
 
@@ -29,6 +29,7 @@ public class BookingInfoEntity {
     @Column(name = "numOfRooms")
     private Integer numOfRooms;
 
+    @Id
     @Column(name = "roomNumbers")
     private String roomNumbers;
 
