@@ -8,8 +8,8 @@ spring:
     name: BOOKING-SERVICE
   datasource:
     url: jdbc:mysql://localhost:3306/upgrad
-    username: root
-    password: root
+    username:
+    password:
   jpa:
     hibernate:
       naming:
