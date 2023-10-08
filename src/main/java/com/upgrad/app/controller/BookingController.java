@@ -20,8 +20,8 @@ public class BookingController {
         return bookingService.createBookingInfoEntity(bookingInfoEntity);
     }
 
-    @PostMapping("/booking/{bookingId}/booking")
-    private TransactionDetailsDTO createTransaction(@PathVariable("bookingId") Integer bookingId, @RequestBody TransactionDetailsDTO transactionDetailsDTO){
+    @PostMapping("/booking/{bookingId}/transaction")
+    private ResponseEntity<?> createTransaction(@PathVariable("bookingId") Integer bookingId, @RequestBody TransactionDetailsDTO transactionDetailsDTO){
         return bookingService.createTransaction(bookingId, transactionDetailsDTO);
     }
 }

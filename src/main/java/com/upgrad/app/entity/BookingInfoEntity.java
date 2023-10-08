@@ -1,10 +1,8 @@
 package com.upgrad.app.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Generated;
 
 import java.util.Date;
 
@@ -14,6 +12,8 @@ import java.util.Date;
 @Table(name = "booking")
 public class BookingInfoEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bookingId")
     private Integer id;
 
@@ -29,7 +29,6 @@ public class BookingInfoEntity {
     @Column(name = "numOfRooms")
     private Integer numOfRooms;
 
-    @Id
     @Column(name = "roomNumbers")
     private String roomNumbers;
 

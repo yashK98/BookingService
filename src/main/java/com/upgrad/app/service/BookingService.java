@@ -2,6 +2,7 @@ package com.upgrad.app.service;
 
 import com.upgrad.app.dto.TransactionDetailsDTO;
 import com.upgrad.app.entity.BookingInfoEntity;
+import com.upgrad.app.exception.ExceptionResponse;
 import com.upgrad.app.repo.BookingRepo;
 import com.upgrad.app.util.BookingUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Optional;
+
+import static com.upgrad.app.util.BookingConstants.*;
 
 
 @Slf4j
@@ -38,7 +42,14 @@ public class BookingService {
         return 1000*numberOfRooms*BookingUtil.diffDate(fromDate, toDate);
     }
 
-    public TransactionDetailsDTO createTransaction(Integer transactionId, TransactionDetailsDTO transactionDetailsDTO){
-        return transactionDetailsDTO;
+    public ResponseEntity<?> createTransaction(Integer transactionId, TransactionDetailsDTO transactionDetailsDTO){
+        if(UPI.equalsIgnoreCase(transactionDetailsDTO.getPaymentMode()) || CARD.equalsIgnoreCase(transactionDetailsDTO.getPaymentMode())){
+            Optional<BookingInfoEntity> response = bookingRepo.findById(transactionDetailsDTO.getBookingId());
+            if(response.isEmpty()){
+                return new ResponseEntity<>(new ExceptionResponse(INVALID_BOOKING_ID,400), HttpStatusCode.valueOf(400));
+            }
+            return new ResponseEntity<>(transactionDetailsDTO, HttpStatusCode.valueOf(201));
+        }
+        return new ResponseEntity<>(new ExceptionResponse(INVALID_PAYMENT_MODE, 400), HttpStatusCode.valueOf(400));
     }
 }
